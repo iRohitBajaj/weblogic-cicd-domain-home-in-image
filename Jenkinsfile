@@ -8,9 +8,6 @@ pipeline {
     }
 
     agent any
-    tools {
-        jdk 'jdk8'
-    }
 
     environment {
         WLSIMG_BLDDIR = "${env.WORKSPACE}/resources/build"
