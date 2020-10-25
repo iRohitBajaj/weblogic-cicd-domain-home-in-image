@@ -28,8 +28,9 @@ java -cp $ORACLE_HOME/wlserver/server/lib/weblogic.jar:$CLASSPATH -Dweblogic.Roo
 ## Curate your extracted weblogic domain yaml per your needs  
 ## Curate youur domain.yaml per your needs  
 
-## Open jenkins console, login as admin, add jdk8 as java installation and point it to download java from oracle site [would require you to configure oracle account in global configuration]  
-## Open jenkins console, login as admin, add kubernetes cluster connection details under cloud configuration, pointing to API server and create a global security configuration using secret as type and upload .kube/config file.  
-
-
+/*:
+* Open jenkins console, login as admin, add jdk8 as java installation and point it to download java from oracle site [would require you to configure oracle account in global configuration]. http://localhost:8080/descriptorByName/hudson.tools.JDKInstaller/enterCredential  
+* Open jenkins console, login as admin, add kubernetes cluster connection details under cloud configuration, pointing to API server and create a global security configuration using secret as type and upload .kube/config file.  
+* Install Docker plugin via Manage plugins.  
+*/
 
