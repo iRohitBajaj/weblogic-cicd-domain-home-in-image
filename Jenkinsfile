@@ -29,7 +29,7 @@ pipeline {
         }
         stage ('Build New Image') {
             agent {
-                     label 'master'
+                     label 'docker-agent'
                 }
             when {
                     expression {
@@ -51,7 +51,7 @@ pipeline {
         }
         stage ('Update existing Image') {
             agent {
-                     label 'master'
+                     label 'docker-agent'
                 }
             when {
                     expression {
