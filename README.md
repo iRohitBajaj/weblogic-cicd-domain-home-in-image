@@ -48,6 +48,9 @@ docker inspect {socat container id  | grep '"IPAddress"' | head -n 1
 ### Manage Jenkins -> Configure clouds -> Add a new cloud (docker) -> Docker Host URI   
 tcp://{socat container ip}/2375  
 
+### Add docker agent  
+Use image benhall/dind-jenkins-agent  
+
 
 
 
