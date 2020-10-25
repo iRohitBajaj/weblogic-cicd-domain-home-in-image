@@ -41,8 +41,8 @@ pipeline {
                     unzip -o ./imagetool.zip
                     curl -SLO https://github.com/oracle/weblogic-deploy-tooling/releases/download/release-1.9.6/weblogic-deploy.zip
                     rm -rf ${WLSIMG_CACHEDIR}
-                    imagetool/bin/imagetool.sh cache addInstaller --type wls --path /tmp/bloginstallers/fmw_12.2.1.4.0_wls_Disk1_1of1.zip --version 12.2.1.4.0
-                    imagetool/bin/imagetool.sh cache addInstaller --type jdk --path /tmp/bloginstallers/jdk-8u212-linux-x64.tar.gz --version 8u212
+                    imagetool/bin/imagetool.sh cache addInstaller --type wls --path /var/jenkins_home/fmw_12.2.1.4.0_wls_Disk1_1of1.zip --version 12.2.1.4.0
+                    imagetool/bin/imagetool.sh cache addInstaller --type jdk --path /var/jenkins_home/jdk-8u212-linux-x64.tar.gz --version 8u212
                     imagetool/bin/imagetool.sh cache addInstaller --type wdt --version latest --path weblogic-deploy.zip
                     imagetool/bin/imagetool.sh create --tag ${IMAGE_NAME} --version 12.2.1.4.0 --jdkVersion=8u171 --wdtModel=BlogDomain-WDT-v1.yaml --wdtArchive=BlogDomain-WDT.zip --wdtDomainHome=/u01/oracle/user_projects/domains/sample-domain2 --wdtVariables=BlogDomain-WDT.properties --wdtDomainType WLS --chown oracle:root
                 '''
@@ -60,8 +60,8 @@ pipeline {
                     unzip -o ./imagetool.zip
                     curl -SLO https://github.com/oracle/weblogic-deploy-tooling/releases/download/release-1.9.6/weblogic-deploy.zip
                     rm -rf ${WLSIMG_CACHEDIR}
-                    imagetool/bin/imagetool.sh cache addInstaller --type wls --path /tmp/bloginstallers/fmw_12.2.1.4.0_wls_Disk1_1of1.zip --version 12.2.1.4.0
-                    imagetool/bin/imagetool.sh cache addInstaller --type jdk --path /tmp/bloginstallers/jdk-8u212-linux-x64.tar.gz --version 8u212
+                    imagetool/bin/imagetool.sh cache addInstaller --type wls --path /var/jenkins_home/fmw_12.2.1.4.0_wls_Disk1_1of1.zip --version 12.2.1.4.0
+                    imagetool/bin/imagetool.sh cache addInstaller --type jdk --path /var/jenkins_home/jdk-8u212-linux-x64.tar.gz --version 8u212
                     imagetool/bin/imagetool.sh cache addInstaller --type wdt --version latest --path weblogic-deploy.zip
                     imagetool/bin/imagetool.sh update --tag ${IMAGE_NAME} --fromImage=dockerish82/blog-domain-home-in-image:v1 --wdtModel=BlogDomain-WDT-v1.yaml --wdtArchive=BlogDomain-WDT.zip --wdtDomainHome=/u01/oracle/user_projects/domains/sample-domain2 --wdtVariables=BlogDomain-WDT.properties --wdtDomainType WLS --chown oracle:root
                 '''

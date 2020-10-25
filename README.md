@@ -17,7 +17,7 @@ helm install jenkins -f ./jenkins/helm-values.yaml jenkins/jenkins --namespace s
 
 ## Retrieve jenkins password that got generated during pod creation  
 printf $(kubectl get secret --namespace sample-domain2-ns jenkins -o jsonpath="{.data.jenkins-admin-password}" | base64 --decode);echo  
-admin/tl47mbiJA8  
+admin/r0SNlYJ80k  
 
 export POD_NAME=$(kubectl get pods --namespace sample-domain2-ns -l "app.kubernetes.io/component=jenkins-master" -l "app.kubernetes.io/instance=jenkins" -o jsonpath="{.items[0].metadata.name}")  
 kubectl --namespace sample-domain2-ns port-forward $POD_NAME 8080:8080  
@@ -33,6 +33,8 @@ java -cp $ORACLE_HOME/wlserver/server/lib/weblogic.jar:$CLASSPATH -Dweblogic.Roo
 * Open jenkins console, login as admin, add kubernetes cluster connection details under cloud configuration, pointing to API server and create a global security configuration using secret as type and upload .kube/config file.  
 * Install Docker plugin via Manage plugins.  
 * Add docker login details for docker push via "configure clouds"  
+
+
 
 
 
