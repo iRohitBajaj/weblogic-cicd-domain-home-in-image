@@ -489,7 +489,7 @@ master:
   testEnabled: true
 
 agent:
-  enabled: true
+  enabled: false
   image: "jenkins/inbound-agent"
   tag: "4.3-4"
   workingDir: "/home/jenkins"

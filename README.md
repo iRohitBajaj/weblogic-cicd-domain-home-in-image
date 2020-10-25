@@ -34,6 +34,21 @@ java -cp $ORACLE_HOME/wlserver/server/lib/weblogic.jar:$CLASSPATH -Dweblogic.Roo
 * Install Docker plugin via Manage plugins.  
 * Add docker login details for docker push via "configure clouds"  
 
+## Set up docker plugin so taht jenkins can talk to host docker daemon   
+```
+$ docker pull alpine/socat
+$ docker run -d --restart=always \
+    -p 127.0.0.1:2376:2375 \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    alpine/socat \
+    tcp-listen:2375,fork,reuseaddr unix-connect:/var/run/docker.sock
+```
+docker inspect {socat container id  | grep '"IPAddress"' | head -n 1  
+
+### Manage Jenkins -> Configure clouds -> Add a new cloud (docker) -> Docker Host URI   
+tcp://{socat container ip}/2375  
+
+
 
 
 
