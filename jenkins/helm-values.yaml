@@ -489,7 +489,7 @@ master:
   testEnabled: true
 
 agent:
-  enabled: false
+  enabled: true
   image: "jenkins/inbound-agent"
   tag: "4.3-4"
   workingDir: "/home/jenkins"
@@ -504,12 +504,12 @@ agent:
   resources:
     requests:
       cpu: "512m"
-      memory: "512Mi"
+      memory: "1024Mi"
     limits:
       cpu: "512m"
-      memory: "512Mi"
+      memory: "2048Mi"
   # You may want to change this to true while testing a new image
-  alwaysPullImage: false
+  alwaysPullImage: true
   # Controls how agent pods are retained after the Jenkins build completes
   # Possible values: Always, Never, OnFailure
   podRetention: "Never"
@@ -517,16 +517,17 @@ agent:
   # Allowed types are: ConfigMap, EmptyDir, HostPath, Nfs, PVC, Secret
   # Configure the attributes as they appear in the corresponding Java class for that type
   # https://github.com/jenkinsci/kubernetes-plugin/tree/master/src/main/java/org/csanchez/jenkins/plugins/kubernetes/volumes
-  volumes: []
+  volumes: 
+  #  []
   # - type: ConfigMap
   #   configMapName: myconfigmap
   #   mountPath: /var/myapp/myconfigmap
   # - type: EmptyDir
   #   mountPath: /var/myapp/myemptydir
   #   memory: false
-  # - type: HostPath
-  #   hostPath: /var/lib/containers
-  #   mountPath: /var/myapp/myhostpath
+    - type: HostPath
+      hostPath: /Users/rbajaj/Documents/weblogic-poc/weblogic-cicd-domain-home-in-image/temp
+      mountPath: /tmp/bloginstallers
   # - type: Nfs
   #   mountPath: /var/myapp/mynfs
   #   readOnly: false
@@ -639,10 +640,10 @@ persistence:
   ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
   ##   GKE, AWS & OpenStack)
   ##
-  storageClass: jenkins-pv-hostpath
+  storageClass: jenkins-pv-hp
   annotations: {}
   accessMode: "ReadWriteOnce"
-  size: "1Gi"
+  size: "5Gi"
   volumes:
   #  - name: nothing
   #    emptyDir: {}

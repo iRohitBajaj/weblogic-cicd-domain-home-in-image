@@ -26,10 +26,13 @@ kubectl --namespace sample-domain2-ns port-forward $POD_NAME 8080:8080
 java -cp $ORACLE_HOME/wlserver/server/lib/weblogic.jar:$CLASSPATH -Dweblogic.RootDirectory=/Users/rbajaj/Oracle/Middleware/Oracle_Home/user_projects/domains/medrec weblogic.security.Encrypt $PASSWORD  
 
 ## Curate your extracted weblogic domain yaml per your needs  
-## Curate youur domain.yaml per your needs  
+## Curate your domain.yaml per your needs  
 
 ## Set up jenkins node  
 * Open jenkins console, login as admin, add jdk8 as java installation and point it to download java from oracle site [would require you to configure oracle account in global configuration]. http://localhost:8080/descriptorByName/hudson.tools.JDKInstaller/enterCredential  
 * Open jenkins console, login as admin, add kubernetes cluster connection details under cloud configuration, pointing to API server and create a global security configuration using secret as type and upload .kube/config file.  
 * Install Docker plugin via Manage plugins.  
+* Add docker login details for docker push via "configure clouds"  
+
+
 

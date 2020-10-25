@@ -28,7 +28,7 @@ kubernetes:
         image: 'dockerish82/blog-domain-home-in-image:v1'
         imagePullPolicy: 'Always'
         webLogicCredentialsSecret:
-            name: '@@PROP:AdminPassword@@'
+            name: '@@PROP:admin.PasswordEncrypted@@'
 resources:
     JDBCSystemResource:
         jdbc/blog:
@@ -40,7 +40,7 @@ resources:
                 JDBCDataSourceParams:
                     JNDIName: jdbc.blog
                 JDBCDriverParams:
-                    URL: 'jdbc:mysql://localhost:3306/blog-db?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC'
+                    URL: 'jdbc:mysql://blog-db-mysql/blogdb'
                     PasswordEncrypted: '@@PROP:JDBC.jdbc.blog.PasswordEncrypted@@'
                     DriverName: com.mysql.jdbc.Driver
                     Properties:
