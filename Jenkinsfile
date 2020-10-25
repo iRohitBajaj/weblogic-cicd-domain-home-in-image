@@ -32,9 +32,8 @@ pipeline {
                     unzip -o ./imagetool.zip
                     curl -SLO https://github.com/oracle/weblogic-deploy-tooling/releases/download/release-1.9.6/weblogic-deploy.zip
                     rm -rf ${WLSIMG_CACHEDIR}
-                    ls -la
                     imagetool/bin/imagetool.sh cache addInstaller --type wdt --version latest --path weblogic-deploy.zip
-                    imagetool/bin/imagetool.sh create --tag ${IMAGE_NAME} --fromImage dockerish82/weblogicrepo:12.2.1.4 --wdtModel=./BlogDomain-WDT-v1.yaml --wdtArchive=./BlogDomain-WDT.zip --wdtDomainHome=/u01/oracle/user_projects/domains/sample-domain2 --wdtVariables=./BlogDomain-WDT.properties --wdtDomainType WLS --chown oracle:root 
+                    imagetool/bin/imagetool.sh create --tag ${IMAGE_NAME} --fromImage dockerish82/weblogicrepo:12.2.1.4 --wdtModel=BlogDomain-WDT-v1.yaml --wdtArchive=BlogDomain-WDT.zip --wdtDomainHome=/u01/oracle/user_projects/domains/sample-domain2 --wdtVariables=BlogDomain-WDT.properties --wdtDomainType WLS --chown oracle:root 
                 '''
             }
         }
