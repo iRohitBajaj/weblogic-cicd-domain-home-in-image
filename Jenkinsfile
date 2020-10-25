@@ -7,11 +7,7 @@ pipeline {
         choice(name: 'DEPLOY_TYPE', choices: ['Create', 'Update'], description: 'Create new weblogic stack or apply updates to existing')
     }
 
-    agent {
-        docker {
-          label 'docker'
-        }
-      }
+    agent any
 
     environment {
         WLSIMG_BLDDIR = "${env.WORKSPACE}/resources/build"
