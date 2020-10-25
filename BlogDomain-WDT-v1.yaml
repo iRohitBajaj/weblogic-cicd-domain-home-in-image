@@ -1,0 +1,55 @@
+domainInfo:
+    AdminUserName: '@@PROP:AdminUserName@@'
+    AdminPassword: '@@PROP:admin.PasswordEncrypted@@'
+topology:
+    Name: 'sample-domain2'
+    DomainVersion: 12.2.1.4.0
+    Server:
+        AdminServer:
+        'Managed-Server-0':
+            ListenPort: 8001
+            Machine: 'Machine-0'
+            ServerDiagnosticConfig:
+                WldfDiagnosticVolume: Low
+            WebServer:
+                WebServerLog:
+                    NumberOfFilesLimited: false
+    Machine:
+        'Machine-0':
+    SecurityConfiguration:
+        CredentialEncrypted: '@@PROP:admin.PasswordEncrypted@@'
+kubernetes:
+    apiVersion: weblogic.oracle/v8
+    kind: Domain
+    metadata:
+        name: 'sample-domain2'
+        namespace: 'sample-domain2-ns'
+    spec:
+        image: 'dockerish82/blog-domain-home-in-image:v1'
+        imagePullPolicy: 'Always'
+        webLogicCredentialsSecret:
+            name: '@@PROP:AdminPassword@@'
+resources:
+    JDBCSystemResource:
+        jdbc/blog:
+            Target: 'Managed-Server-0'
+            JdbcResource:
+                DatasourceType: GENERIC
+                JDBCConnectionPoolParams:
+                    TestTableName: SQL SELECT 1
+                JDBCDataSourceParams:
+                    JNDIName: jdbc.blog
+                JDBCDriverParams:
+                    URL: 'jdbc:mysql://localhost:3306/blog-db?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC'
+                    PasswordEncrypted: '@@PROP:JDBC.jdbc.blog.PasswordEncrypted@@'
+                    DriverName: com.mysql.jdbc.Driver
+                    Properties:
+                        user:
+                            Value: bloguser
+appDeployments:
+    Application:
+        'blog-ear':
+            SourcePath: 'wlsdeploy/applications/blog-ear.ear'
+            ModuleType: ear
+            StagingMode: nostage
+            Target: 'Managed-Server-0'

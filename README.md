@@ -1,0 +1,35 @@
+# weblogic-cicd-domain-home-in-image  
+Demo of CI/CD in WebLogic on K8S project  
+
+cd {cloned-repo-location}  
+kubectl create namespace sample-domain2-ns  
+
+## Add jenkins helm chart repo to helm client cache  
+Ref: https://github.com/jenkinsci/helm-charts  
+
+helm repo add jenkins https://charts.jenkins.io  
+
+## Create persistence volume to persist jenkins data during restarts  
+kubectl apply -f ./jenkins/jenkins-pv.yaml -n sample-domain2-ns
+
+## Copy values.yaml from https://github.com/jenkinsci/helm-charts and update it to point to persistence volume created in previous step  
+helm install jenkins -f ./jenkins/helm-values.yaml jenkins/jenkins --namespace sample-domain2-ns  
+
+## Retrive jenkins password that got generated during pod creation  
+printf $(kubectl get secret --namespace sample-domain2-ns jenkins -o jsonpath="{.data.jenkins-admin-password}" | base64 --decode);echo  
+admin/tl47mbiJA8  
+
+export POD_NAME=$(kubectl get pods --namespace sample-domain2-ns -l "app.kubernetes.io/component=jenkins-master" -l "app.kubernetes.io/instance=jenkins" -o jsonpath="{.items[0].metadata.name}")  
+kubectl --namespace sample-domain2-ns port-forward $POD_NAME 8080:8080  
+
+## Encrypt admin server and datasource password using weblogic jar and replace it on domain properties file  
+java -cp $ORACLE_HOME/wlserver/server/lib/weblogic.jar:$CLASSPATH -Dweblogic.RootDirectory=/Users/rbajaj/Oracle/Middleware/Oracle_Home/user_projects/domains/medrec weblogic.security.Encrypt $PASSWORD  
+
+## Curate your extracted weblogic domain yaml per your needs  
+## Curate youur domain.yaml per your needs  
+
+## Open jenkins console, login as admin, add jdk8 as java installation and point it to download java from oracle site [would require you to configure oracle account in global configuration]  
+## Open jenkins console, login as admin, add kubernetes cluster connection details under cloud configuration, pointing to API server and create a global security configuration using secret as type and upload .kube/config file.  
+
+
+
