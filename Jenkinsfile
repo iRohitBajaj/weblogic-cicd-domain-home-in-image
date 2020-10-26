@@ -76,7 +76,7 @@ pipeline {
                 '''
             }
         }
-        stage ('Push tagged Image') {
+        /*stage ('Push tagged Image') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerhub-login', passwordVariable: 'DOCKER_REGISTRY_PWD', usernameVariable: 'DOCKER_REGISTRY_USER')]) {
                     sh '''
@@ -84,7 +84,7 @@ pipeline {
                     '''
                 }
             }
-        }
+        }*/
         stage('Deploy new application') {
             when {
                     expression {
