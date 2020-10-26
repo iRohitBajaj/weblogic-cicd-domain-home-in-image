@@ -37,7 +37,7 @@ pipeline {
         stage ('Build New Image') {
             agent {
                 docker {
-                    image 'ubuntu:latest'
+                    label 'docker-agent'
                 }
             }
             when {
@@ -60,7 +60,7 @@ pipeline {
         stage ('Update existing Image') {
             agent {
                 docker {
-                image 'ubuntu:latest'
+                    label 'docker-agent'
                 }
             }
             when {
