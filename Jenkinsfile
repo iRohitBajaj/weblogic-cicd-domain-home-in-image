@@ -22,11 +22,6 @@ pipeline {
 
     stages {
         stage ('Environment for Create') {
-            when {
-                    expression {
-                    DEPLOY_TYPE == 'Create'
-                }
-            }
             steps {
                 sh '''
                     id
