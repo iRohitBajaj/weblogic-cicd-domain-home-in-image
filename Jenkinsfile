@@ -71,7 +71,7 @@ pipeline {
                     imagetool/bin/imagetool.sh cache addInstaller --type wls --path "${REQ_INSTALLERS_DIR}"/fmw_12.2.1.4.0_wls_Disk1_1of1.zip --version 12.2.1.4.0
                     imagetool/bin/imagetool.sh cache addInstaller --type jdk --path "${REQ_INSTALLERS_DIR}"/jdk-8u212-linux-x64.tar.gz --version 8u212
                     imagetool/bin/imagetool.sh cache addInstaller --type wdt --version latest --path weblogic-deploy.zip
-                    imagetool/bin/imagetool.sh update --tag ${IMAGE_NAME} --fromImage=dockerish82/blog-domain-home-in-image:v1 --wdtModel=BlogDomain-WDT.yaml --wdtArchive=BlogDomain-WDT.zip --wdtDomainHome=/u01/oracle/user_projects/domains/sample-domain2 --wdtVariables=BlogDomain-WDT.properties --wdtDomainType WLS --chown oracle:root
+                    imagetool/bin/imagetool.sh update --tag ${IMAGE_NAME} --fromImage=dockerish82/blog-domain-home-in-image:v1 --version 12.2.1.4.0 --jdkVersion=8u212 --wdtModel=BlogDomain-WDT.yaml --wdtArchive=BlogDomain-WDT.zip --wdtDomainHome=/u01/oracle/user_projects/domains/sample-domain2 --wdtVariables=BlogDomain-WDT.properties --wdtDomainType WLS --chown oracle:root
                 '''
             }
         }
