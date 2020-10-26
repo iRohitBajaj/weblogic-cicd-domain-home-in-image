@@ -3,6 +3,12 @@
 cd {cloned-repo-location}  
 kubectl create namespace sample-domain2-ns  
 
+### Prerequisites  
+* k8 weblogic operator is running  
+* k8 domain exists for weblogic deployment  
+* mysql db pod exists  
+* ingress controller is configured  
+
 ## Add jenkins helm chart repo to helm client cache  
 Ref: https://github.com/jenkinsci/helm-charts  
 
@@ -34,17 +40,17 @@ java -cp $ORACLE_HOME/wlserver/server/lib/weblogic.jar:$CLASSPATH -Dweblogic.Roo
 * Add docker credentials with id 'dockerhub-login' under manage credentials   
 
 
-### Add docker agent  
+## Add docker agent  
 Use image jenkins/jnlp-slave for agent template    
 Container Settings -> Volumes - /var/run/docker.sock:/var/run/docker.sock  
 For Connect Method select - Attach Docker container  
 For user - Jenkins  
 
-### Create a job to execute CI pipeline  
+## Create a job to execute CI pipeline  
 Under pipeline from SCM section add your git repo to pull Jenkinsfile from -  
 https://github.com/iRohitBajaj/weblogic-cicd-domain-home-in-image.git  
 
-### Execute job  
+## Execute job  
 * For first time deployment use DEPLOY_TYPE param as "Create"  
 * For updates to weblogic domai use DEPLOY_TYPE param as "Update"  
 
