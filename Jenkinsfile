@@ -3,6 +3,10 @@ pipeline {
         disableConcurrentBuilds()
     }
 
+    tools {
+        jdk 'jdk11'
+    }
+
     parameters {
         choice(name: 'DEPLOY_TYPE', choices: ['Create', 'Update'], description: 'Create new weblogic stack or apply updates to existing')
     }
@@ -110,11 +114,7 @@ pipeline {
    }
    post {
     cleanup {
-        steps {
-                sh '''
-                    echo "done!"
-                '''
-        }
+        deleteDir()
     }
   }
 }
