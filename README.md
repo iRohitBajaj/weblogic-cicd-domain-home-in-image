@@ -1,5 +1,4 @@
-# weblogic-cicd-domain-home-in-image  
-Demo of CI/CD in WebLogic on K8S project  
+# Demo of CI/CD in WebLogic on K8S project  
 
 cd {cloned-repo-location}  
 kubectl create namespace sample-domain2-ns  
@@ -31,27 +30,24 @@ java -cp $ORACLE_HOME/wlserver/server/lib/weblogic.jar:$CLASSPATH -Dweblogic.Roo
 ## Set up jenkins node  
 * Open jenkins console, login as admin, add jdk8 as java installation and point it to download java from oracle site [would require you to configure oracle account in global configuration]. http://localhost:8080/descriptorByName/hudson.tools.JDKInstaller/enterCredential  
 * Open jenkins console, login as admin, add kubernetes cluster connection details under cloud configuration, pointing to API server and create a global security configuration using secret as type and upload .kube/config file.  
-* Install Docker plugin via Manage plugins.  
-* Add docker login details for docker push via "configure clouds"  
+* Install Docker plugin via Manage plugins.   
+* Add docker credentials with id 'dockerhub-login' under manage credentials   
 
-## Set up docker plugin so taht jenkins can talk to host docker daemon   
-```
-$ docker pull alpine/socat
-$ docker run -d --restart=always \
-    -p 127.0.0.1:2376:2375 \
-    -v /var/run/docker.sock:/var/run/docker.sock \
-    alpine/socat \
-    tcp-listen:2375,fork,reuseaddr unix-connect:/var/run/docker.sock
-```
-docker inspect {socat container id}  | grep '"IPAddress"' | head -n 1  
-
-### Manage Jenkins -> Configure clouds -> Add a new cloud (docker) -> Docker Host URI   
-tcp://{socat container ip}/2375  
 
 ### Add docker agent  
-Use image benhall/dind-jenkins-agent  
+Use image jenkins/jnlp-slave for agent template    
 Container Settings -> Volumes - /var/run/docker.sock:/var/run/docker.sock  
-For Connect Method select Connect with SSH  
+For Connect Method select - Attach Docker container  
+For user - Jenkins  
+
+### Create a job to execute CI pipeline  
+Under pipeline from SCM section add your git repo to pull Jenkinsfile from -  
+https://github.com/iRohitBajaj/weblogic-cicd-domain-home-in-image.git  
+
+### Execute job  
+* For first time deployment use DEPLOY_TYPE param as "Create"  
+* For updates to weblogic domai use DEPLOY_TYPE param as "Update"  
+
 
 
 
