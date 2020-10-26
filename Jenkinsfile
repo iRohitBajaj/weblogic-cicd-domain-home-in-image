@@ -10,14 +10,17 @@ pipeline {
     agent any
 
     environment {
-        WLSIMG_BLDDIR = "${env.WORKSPACE}/resources/build"
-        WLSIMG_CACHEDIR = "${env.WORKSPACE}/resources/cache"
+        WLSIMG_BLDDIR = "${env.SLAVE_WORKSPACE}/resources/build"
+        WLSIMG_CACHEDIR = "${env.SLAVE_WORKSPACE}/resources/cache"
         REQ_INSTALLERS_DIR = "${env.INSTALLERS_DIR}"
         IMAGE_NAME = "dockerish82/blog-domain-home-in-image:${sh(returnStdout: true, script: 'date +%Y%m%d%H%M')}"
     }
 
     stages {
         stage ('Environment for Create') {
+            agent {
+                label 'docker-agent'
+            }
             when {
                     expression {
                     DEPLOY_TYPE == 'Create'
