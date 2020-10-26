@@ -110,7 +110,11 @@ pipeline {
    }
    post {
     cleanup {
-        
+        steps {
+                sh '''
+                    echo "done!"
+                '''
+        }
     }
   }
 }
