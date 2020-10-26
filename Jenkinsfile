@@ -28,6 +28,8 @@ pipeline {
             }
             steps {
                 sh '''
+                    id
+                    whoami
                     rm -rf ${WLSIMG_CACHEDIR}
                     mkdir -p  ${WLSIMG_BLDDIR}
                     mkdir -p  ${WLSIMG_CACHEDIR}
