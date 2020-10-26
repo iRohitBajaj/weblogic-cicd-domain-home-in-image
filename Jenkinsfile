@@ -35,9 +35,9 @@ pipeline {
             }
         }
         stage ('Build New Image') {
-            agent {
-                     label 'docker-agent'
-                }
+            # agent {
+             #        label 'docker-agent'
+             #   }
             when {
                     expression {
                     DEPLOY_TYPE == 'Create'
@@ -56,9 +56,9 @@ pipeline {
             }
         }
         stage ('Update existing Image') {
-            agent {
-                     label 'docker-agent'
-                }
+            #agent {
+            #         label 'docker-agent'
+            #    }
             when {
                     expression {
                     DEPLOY_TYPE == 'Update'
