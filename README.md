@@ -43,13 +43,16 @@ $ docker run -d --restart=always \
     alpine/socat \
     tcp-listen:2375,fork,reuseaddr unix-connect:/var/run/docker.sock
 ```
-docker inspect {socat container id  | grep '"IPAddress"' | head -n 1  
+docker inspect {socat container id}  | grep '"IPAddress"' | head -n 1  
 
 ### Manage Jenkins -> Configure clouds -> Add a new cloud (docker) -> Docker Host URI   
 tcp://{socat container ip}/2375  
 
 ### Add docker agent  
 Use image benhall/dind-jenkins-agent  
+Container Settings -> Volumes - /var/run/docker.sock:/var/run/docker.sock  
+For Connect Method select Connect with SSH  
+
 
 
 
