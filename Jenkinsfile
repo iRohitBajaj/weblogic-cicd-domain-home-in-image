@@ -10,8 +10,8 @@ pipeline {
     agent any
 
     environment {
-        WLSIMG_BLDDIR = "${SLAVE_WORKSPACE}/resources/build"
-        WLSIMG_CACHEDIR = "${SLAVE_WORKSPACE}/resources/cache"
+        WLSIMG_BLDDIR = "${env.WORKSPACE}/resources/build"
+        WLSIMG_CACHEDIR = "${env.WORKSPACE}/resources/cache"
         REQ_INSTALLERS_DIR = "${env.INSTALLERS_DIR}"
         IMAGE_NAME = "dockerish82/blog-domain-home-in-image:${sh(returnStdout: true, script: 'date +%Y%m%d%H%M')}"
     }
@@ -35,9 +35,11 @@ pipeline {
             }
         }
         stage ('Build New Image') {
-             agent {
-                     label 'docker-agent'
-               }
+            agent {
+                docker {
+                    image 'ubuntu:latest'
+                }
+            }
             when {
                     expression {
                     DEPLOY_TYPE == 'Create'
@@ -57,8 +59,10 @@ pipeline {
         }
         stage ('Update existing Image') {
             agent {
-                label 'docker-agent'
+                docker {
+                image 'ubuntu:latest'
                 }
+            }
             when {
                     expression {
                     DEPLOY_TYPE == 'Update'
