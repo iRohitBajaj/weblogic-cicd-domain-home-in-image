@@ -20,7 +20,8 @@ pipeline {
         stage ('Environment') {
             steps {
                 sh '''
-                    mkdir -p  ${WLSIMG_BLDDIR} ${WLSIMG_CACHE_DIR}
+                    mkdir -p  ${WLSIMG_BLDDIR}
+                    mkdir -p  ${WLSIMG_CACHE_DIR}
                     echo "IMAGE_NAME = ${IMAGE_NAME}"
                     echo "PATH = ${PATH}"
                     echo "JAVA_HOME = ${JAVA_HOME}"
